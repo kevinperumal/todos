@@ -14,11 +14,12 @@
     {{> CreateTodoItem}}
     <ul class="todos-list">
       {{#each items}}
-        <li class="todo-item">
+        <li class="todo-item" {{isDoneClass}}>
       {{> TodoItem}}
       </li>
       {{/each}}
     </ul>
+    {{> TodosCount}}
   </div>
 </template>
 
@@ -37,4 +38,10 @@
   <form class="create-todo">
     <input type="text" placeholder="Create new Todo..."/>
   </form>
+</template>
+
+<template name="TodosCount">
+  <div class="todos-count">
+    {{completedCount}} / {{totalCount}} todos completed
+  </div>
 </template>

@@ -3,7 +3,14 @@ Todos = new Meteor.Collection('todos');
 if (Meteor.isClient) {
   Template.TodosPanel.helpers({
     items: function() {
-      return Todos.find();
+      return Todos.find({},{
+        sort: {
+          created_at: -1
+        }
+      });
+      },
+      isDoneClass: function() {
+        return this.is_done ? 'done' : "";
     }
   });
 
@@ -39,6 +46,17 @@ if (Meteor.isClient) {
 
       var form = tmpl.find('form');
       form.reset();
+    }
+  });
+
+  Template.TodosCount.helpers({
+    completedCount: function() {
+      return Todos.find({is_done: true}).count();
+
+    },
+
+    totalCount: function(){
+    return Todos.find({}).count();
     }
   });
 }
